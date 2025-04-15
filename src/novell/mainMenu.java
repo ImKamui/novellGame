@@ -1,11 +1,9 @@
 package novell;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.*;
@@ -18,8 +16,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class mainMenu extends javax.swing.JFrame{
-	private static boolean isFirstSceneOpen = false;
+public class mainMenu{
 	private JFrame frame;
 
 	/**
@@ -84,13 +81,22 @@ public class mainMenu extends javax.swing.JFrame{
 		});
 		exitButton.setFont(new Font("Consolas", Font.PLAIN, 20));
 		exitButton.setBounds(690, 500, 160, 40);
-		// exitButton.setIcon(new ImageIcon("images/neon_button.png"));
 		exitButton.setBorderPainted(false);
 		exitButton.setFocusPainted(false);
 		exitButton.setBackground(Color.RED);
 		panel.add(exitButton);
 		
 		JButton settingsButton = new JButton("Настройки");
+		settingsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				settingsButton.setEnabled(false);
+				frame.dispose();
+				EventQueue.invokeLater(() -> {
+					settings setting = new settings();
+					setting.setVisible(true);
+				});
+			}
+		});
 		settingsButton.setFont(new Font("Consolas", Font.PLAIN, 20));
 		settingsButton.setBounds(690, 450, 160, 40);
 		settingsButton.setBorderPainted(false);
@@ -101,14 +107,12 @@ public class mainMenu extends javax.swing.JFrame{
 		JButton playButton = new JButton("Играть");
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!isFirstSceneOpen)
-				{
-					isFirstSceneOpen = true;
-					playButton.setEnabled(false);
-					frame.dispose();
-					//new firstScene().setVisible(true);
-					new firstScene().setAlwaysOnTop(true);
-				}
+				playButton.setEnabled(false);
+				frame.dispose();
+				EventQueue.invokeLater(() -> {
+					firstScene scene = new firstScene();
+					scene.setVisible(true);
+				});
 			}
 		});
 		playButton.setFont(new Font("Consolas", Font.PLAIN, 20));
@@ -118,5 +122,17 @@ public class mainMenu extends javax.swing.JFrame{
 		playButton.setBackground(Color.WHITE);
 		panel.add(playButton);
 		
+		JLabel author = new JLabel("Author by Danil Kholmychev");
+		author.setBounds(1370, 830, 160, 40);
+		panel.add(author);
+		
+	}
+	public void setVisible(boolean visible)
+	{
+		frame.setVisible(visible);
+	}
+	public void setAlwaysOnTop(boolean onTop)
+	{
+		frame.setAlwaysOnTop(onTop);
 	}
 }
