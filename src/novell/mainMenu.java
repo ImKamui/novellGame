@@ -59,7 +59,7 @@ public class mainMenu{
 		
 		JPanel panel = new JPanel()
 				{
-			private Image background = new ImageIcon("images/mainMenu.jpg").getImage();
+			private Image background = new ImageIcon("images/1.jpg").getImage();
 			
 			@Override
 			protected void paintComponent(Graphics g)
